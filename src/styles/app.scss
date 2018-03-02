@@ -1,0 +1,14 @@
+@charset "utf-8";
+
+html, body, div, h1, h2, h3, h4, h5, h6, p, span, a, header, footer, section, table, thead, tbody, tfoot, th, td, tr, ul, li, ol 
+{
+    margin: 0;
+    padding: 0;
+}
+
+html, body
+{
+    position: relative;
+    min-width: 300px;
+    background-color: #ab47bc;
+}
