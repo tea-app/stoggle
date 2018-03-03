@@ -1,9 +1,9 @@
 import React from 'react'
 import { ListItem, ListItemText } from 'material-ui/List'
 
-const StoggleListItem = ({primary}) => {
+const StoggleListItem = ({primary, onClick}) => {
   return(
-    <ListItem>
+    <ListItem onClick={onClick}>
       <ListItemText primary={primary} color='inherit' />
     </ListItem>
   )

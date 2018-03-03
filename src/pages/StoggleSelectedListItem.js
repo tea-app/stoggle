@@ -9,9 +9,9 @@ const styles = theme => ({
   }
 })
 
-const StoggleSelectedListItem = ({primary,classes}) => {
+const StoggleSelectedListItem = ({primary, classes, onClick}) => {
   return (
-    <ListItem >
+    <ListItem onClick={onClick}>
       <ListItemText
         primary={
           <Typography className={classes.selected} varint='subheading' color='secondary'>{primary}</Typography>
