@@ -1,14 +1,25 @@
 import { combineReducers } from 'redux'
+import uuid from 'uuid/v4'
 
+// ActionTypes
 export const StoggleActionTypes = {
-  STOGGLE_REQUEST_ADD: '@@stoggle/STOGLLE_REQUEST_ADD',
-  STOGGLE_REQUEST_DELETE: '@@stoggle/STOGLLE_REQUEST_DELETE'
+  STOGGLE_REQUEST_ADD: '@@stoggle/STOGGLE_REQUEST_ADD',
+  STOGGLE_REQUEST_DELETE: '@@stoggle/STOGGLE_REQUEST_DELETE',
+  STOGGLE_REQUEST_TOGGLE: '@@stoggle/STOGGLE_REQUEST_TOGGLE'
 }
 
+// Action Creators --------------------------------------------------
 export const requestAdd = name => ({
   type: StoggleActionTypes.STOGGLE_REQUEST_ADD,
   payload: {
     name
+  }
+})
+
+export const requestToggle = id => ({
+  type: StoggleActionTypes.STOGGLE_REQUEST_TOGGLE,
+  payload: {
+    id
   }
 })
 
@@ -19,14 +30,40 @@ export const requestDelete = id => ({
   }
 })
 
+// reducers --------------------------------------------------
 const reduceRequestAdd = (state, action) => {
+  const newStocks = state.stocks
   const newStock = {
-    id:'stoggle-2',
+    id: uuid(),
     name: action.payload.name,
     status: true
   }
-  const newStocks = state.stocks
   newStocks.push(newStock)
+
+  return Object.assign({}, state, {
+    stocks: newStocks
+  })
+}
+
+const reduceRequestToggle = (state, action) => {
+  const newStocks = state.stocks.map(stock => {
+    if(stock.id === action.payload.id) {
+      stock.status = !stock.status
+      return stock
+    }
+    return stock
+  })
+
+  return Object.assign({}, state, {
+    stocks: newStocks
+  })
+}
+
+const reduceRequestDelete = (state, action) => {
+  const newStocks = state.stocks.filter(stock => {
+    return stock.id !== action.payload.id
+  })
+
   return Object.assign({}, state, {
     stocks: newStocks
   })
@@ -46,6 +83,13 @@ const stoggleReducer = (state = initialState, action) => {
   switch (action.type) {
     case StoggleActionTypes.STOGGLE_REQUEST_ADD:
     return reduceRequestAdd(state,action)
+
+    case StoggleActionTypes.STOGGLE_REQUEST_TOGGLE:
+    return reduceRequestToggle(state, action)
+
+    case StoggleActionTypes.STOGGLE_REQUEST_DELETE:
+    return reduceRequestDelete(state, action)
+
     default:
     return state
   }
