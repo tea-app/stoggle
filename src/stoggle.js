@@ -1,24 +1,36 @@
 import { combineReducers } from 'redux'
 
-const StoggleActionTypes = {
+export const StoggleActionTypes = {
   STOGGLE_REQUEST_ADD: '@@stoggle/STOGLLE_REQUEST_ADD',
   STOGGLE_REQUEST_DELETE: '@@stoggle/STOGLLE_REQUEST_DELETE'
 }
 
-const requestAdd = name => ({
+export const requestAdd = name => ({
   type: StoggleActionTypes.STOGGLE_REQUEST_ADD,
   payload: {
     name
   }
 })
 
-const requestDelete = id => ({
+export const requestDelete = id => ({
   type: StoggleActionTypes.STOGGLE_REQUEST_DELETE,
   payload: {
     id
   }
 })
 
+const reduceRequestAdd = (state, action) => {
+  const newStock = {
+    id:'stoggle-2',
+    name: action.payload.name,
+    status: true
+  }
+  const newStocks = state.stocks
+  newStocks.push(newStock)
+  return Object.assign({}, state, {
+    stocks: newStocks
+  })
+}
 
 const initialState = {
   stocks: [
@@ -33,13 +45,7 @@ const initialState = {
 const stoggleReducer = (state = initialState, action) => {
   switch (action.type) {
     case StoggleActionTypes.STOGGLE_REQUEST_ADD:
-    return Object.assign({}, state, {
-      stocks: {
-        id:'stoggle-2',
-        name: action.payload.name,
-        status: true
-      }
-    })
+    return reduceRequestAdd(state,action)
     default:
     return state
   }

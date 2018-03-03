@@ -27,3 +27,6 @@ const Stoggle = () => (
 if(rootElement){
   render(<Stoggle />, rootElement)
 }
+
+import { requestAdd } from './stoggle'
+store.dispatch(requestAdd('砂糖'))
