@@ -18,6 +18,8 @@ import CloseIcon from 'material-ui-icons/Close'
 import StoggleListItem from './StoggleListItem'
 import StoggleSelectedListItem from './StoggleSelectedListItem'
 
+
+// styles -------------------------------------------
 const styles = theme => ({
   container: {
     maxWidth: 600,
@@ -72,6 +74,8 @@ const styles = theme => ({
   }
 })
 
+
+// Top -------------------------------------------
 class Top extends Component {
   state = {
     open: false,
@@ -91,6 +95,12 @@ class Top extends Component {
     this.handleClose()
   }
 
+  handleClickItem = (id) => {
+    return () => {
+      this.props.requestToggle(id)
+    }
+  }
+
   handleOpen = () => {
     this.setState({ open: true })
   }
@@ -98,15 +108,19 @@ class Top extends Component {
   handleClose = () => {
     this.setState({ open: false })
   }
-  
+
   render = () => {
     const {
       classes,
       stocks
     } = this.props
+
     const listItems = stocks.map(stock => {
-      return stock.status ? <StoggleListItem key={stock.id} primary={stock.name} /> : <StoggleSelectedListItem key={stock.id} primary={stock.name} />
+      return stock.status
+      ? <StoggleListItem key={stock.id} primary={stock.name} onClick={this.handleClickItem(stock.id)} />
+      : <StoggleSelectedListItem key={stock.id} primary={stock.name} onClick={this.handleClickItem(stock.id)} />
     })
+
     return(
       <div className={classes.container}>
         <Typography className={classes.title} variant='display4' align='center'>Stoggle</Typography>
