@@ -15,6 +15,8 @@ import Modal from 'material-ui/Modal'
 import Input from 'material-ui/Input'
 import IconButton from 'material-ui/IconButton'
 import CloseIcon from 'material-ui-icons/Close'
+import StoggleListItem from './StoggleListItem'
+import StoggleSelectedListItem from './StoggleSelectedListItem'
 
 const styles = theme => ({
   container: {
@@ -40,9 +42,6 @@ const styles = theme => ({
   list: {
     minHeight: 300,
     backgroundColor: 'white',
-  },
-  selected: {
-    fontWeight: 'bold'
   },
   add: {
     color: 'white',
@@ -75,7 +74,21 @@ const styles = theme => ({
 
 class Top extends Component {
   state = {
-    open: false
+    open: false,
+    formItemName : ''
+  }
+
+  handleForm = event => {
+    this.setState({
+      formItemName: event.target.value
+    })
+  }
+
+  handleAdd = () => {
+    if(this.props.requestAdd){
+      this.props.requestAdd(this.state.formItemName)
+    }
+    this.handleClose()
   }
 
   handleOpen = () => {
@@ -87,7 +100,13 @@ class Top extends Component {
   }
   
   render = () => {
-    const {classes} = this.props
+    const {
+      classes,
+      stocks
+    } = this.props
+    const listItems = stocks.map(stock => {
+      return stock.status ? <StoggleListItem key={stock.id} primary={stock.name} /> : <StoggleSelectedListItem key={stock.id} primary={stock.name} />
+    })
     return(
       <div className={classes.container}>
         <Typography className={classes.title} variant='display4' align='center'>Stoggle</Typography>
@@ -103,19 +122,7 @@ class Top extends Component {
           </ToolBar>
         </AppBar>
         <List className={classes.list}>
-          <ListItem>
-            <ListItemText primary='塩' color='inherit' />
-          </ListItem>
-          <Divider />
-          <ListItem >
-            <ListItemText
-             primary={
-               <Typography className={classes.selected} varint='subheading' color='secondary'>砂糖</Typography>
-             }
-             disableTypography
-            />
-          </ListItem>
-          <Divider />
+          {listItems}
         </List>
         </div>
         <Modal
@@ -130,10 +137,10 @@ class Top extends Component {
               </IconButton>
             </ToolBar>
             <form className={classes.form} noValidate autoComplete='off'>
-              <Input></Input>
+              <Input onChange={this.handleForm}></Input>
             </form>
             <ToolBar>
-              <Button className={classes.modalAdd} color='primary'>
+              <Button onClick={this.handleAdd} className={classes.modalAdd} color='primary'>
                 Add
               </Button>
             </ToolBar>
@@ -144,5 +151,7 @@ class Top extends Component {
   }
 }
 
-
+Top.defaultProps = {
+  stocks:[]
+}
 export default withStyles(styles)(Top)
