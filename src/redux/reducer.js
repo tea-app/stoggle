@@ -11,7 +11,7 @@ const initialState = {
 
 // reducers
 const reduceRequestGet = (state, action) => {
-  const stringStocks = localStorage.getItem(STORAGE_KEY) || []
+  const stringStocks = localStorage.getItem(STORAGE_KEY) || '[]'
   const stocks = JSON.parse(stringStocks)
 
   return Object.assign({}, state, {

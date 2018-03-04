@@ -18,6 +18,8 @@ function createWindow () {
     slashes: true
   }))
 
+  win.webContents.openDevTools()
+
   // ウィンドウが閉じられた時に発火
   win.on('closed', () => {
     // Dereference the window object, usually you would store windows
