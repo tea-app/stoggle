@@ -3,7 +3,8 @@ import Top from './Top'
 import {
   requestAdd,
   requestToggle,
-  requestDelete
+  requestDelete,
+  requestGet
 } from './../redux/actions'
 
  const mapStateToProps = state => ({
@@ -13,7 +14,8 @@ import {
 const mapDispatchToProps = dispatch => ({
   requestAdd: name => dispatch(requestAdd(name)),
   requestToggle: id => dispatch(requestToggle(id)),
-  requestDelete: id => dispatch(requestDelete(id))
+  requestDelete: id => dispatch(requestDelete(id)),
+  requestGet: () => dispatch(requestGet())
 })
 
  export default connect(mapStateToProps, mapDispatchToProps)(Top)

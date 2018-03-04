@@ -3,17 +3,22 @@ import uuid from 'uuid/v4'
 
 import { StoggleActionTypes } from './constants'
 
+const STORAGE_KEY = '_stoggle_storage'
+
 const initialState = {
-  stocks: [
-    {
-      id: 'stoggle-1',
-      name: '塩',
-      status: true
-    }
-  ]
+  stocks: []
 }
 
 // reducers
+const reduceRequestGet = (state, action) => {
+  const stringStocks = localStorage.getItem(STORAGE_KEY) || []
+  const stocks = JSON.parse(stringStocks)
+
+  return Object.assign({}, state, {
+    stocks: stocks
+  })
+}
+
 const reduceRequestAdd = (state, action) => {
   const newStocks = state.stocks
   const newStock = {
@@ -22,6 +27,8 @@ const reduceRequestAdd = (state, action) => {
     status: true
   }
   newStocks.push(newStock)
+
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(newStocks))
 
   return Object.assign({}, state, {
     stocks: newStocks
@@ -37,6 +44,8 @@ const reduceRequestToggle = (state, action) => {
     return stock
   })
 
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(newStocks))
+
   return Object.assign({}, state, {
     stocks: newStocks
   })
@@ -47,6 +56,8 @@ const reduceRequestDelete = (state, action) => {
     return stock.id !== action.payload.id
   })
 
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(newStocks))
+
   return Object.assign({}, state, {
     stocks: newStocks
   })
@@ -54,8 +65,11 @@ const reduceRequestDelete = (state, action) => {
 
 export const stoggleReducer = (state = initialState, action) => {
   switch (action.type) {
+    case StoggleActionTypes.STOGGLE_REQUEST_GET:
+    return reduceRequestGet(state, action)
+
     case StoggleActionTypes.STOGGLE_REQUEST_ADD:
-    return reduceRequestAdd(state,action)
+    return reduceRequestAdd(state, action)
 
     case StoggleActionTypes.STOGGLE_REQUEST_TOGGLE:
     return reduceRequestToggle(state, action)
