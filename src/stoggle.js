@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux'
+import uuid from 'uuid/v4'
 
 // ActionTypes
 export const StoggleActionTypes = {
@@ -31,12 +32,12 @@ export const requestDelete = id => ({
 
 // reducers --------------------------------------------------
 const reduceRequestAdd = (state, action) => {
+  const newStocks = state.stocks
   const newStock = {
-    id:'stoggle-2',
+    id: uuid(),
     name: action.payload.name,
     status: true
   }
-  const newStocks = state.stocks
   newStocks.push(newStock)
 
   return Object.assign({}, state, {
@@ -59,7 +60,13 @@ const reduceRequestToggle = (state, action) => {
 }
 
 const reduceRequestDelete = (state, action) => {
-  //...
+  const newStocks = state.stocks.filter(stock => {
+    return stock.id !== action.payload.id
+  })
+
+  return Object.assign({}, state, {
+    stocks: newStocks
+  })
 }
 
 const initialState = {
@@ -82,7 +89,7 @@ const stoggleReducer = (state = initialState, action) => {
 
     case StoggleActionTypes.STOGGLE_REQUEST_DELETE:
     return reduceRequestDelete(state, action)
-    
+
     default:
     return state
   }

@@ -17,6 +17,7 @@ import IconButton from 'material-ui/IconButton'
 import CloseIcon from 'material-ui-icons/Close'
 import StoggleListItem from './StoggleListItem'
 import StoggleSelectedListItem from './StoggleSelectedListItem'
+import DeleteButton from 'material-ui-icons/Delete'
 
 
 // styles -------------------------------------------
@@ -95,6 +96,12 @@ class Top extends Component {
     this.handleClose()
   }
 
+  handleDelete = id => {
+    return () => {
+      this.props.requestDelete(id)
+    }
+  }
+
   handleClickItem = (id) => {
     return () => {
       this.props.requestToggle(id)
@@ -117,8 +124,8 @@ class Top extends Component {
 
     const listItems = stocks.map(stock => {
       return stock.status
-      ? <StoggleListItem key={stock.id} primary={stock.name} onClick={this.handleClickItem(stock.id)} />
-      : <StoggleSelectedListItem key={stock.id} primary={stock.name} onClick={this.handleClickItem(stock.id)} />
+      ? <StoggleListItem key={stock.id} primary={stock.name} onClick={this.handleClickItem(stock.id)} onDelete={this.handleDelete(stock.id)} />
+      : <StoggleSelectedListItem key={stock.id} primary={stock.name} onClick={this.handleClickItem(stock.id)} onDelete={this.handleDelete(stock.id)} />
     })
 
     return(
