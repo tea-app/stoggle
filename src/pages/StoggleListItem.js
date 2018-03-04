@@ -29,4 +29,4 @@ const StoggleListItem = ({primary, classes, onClick, onDelete}) => {
   )
 }
 
-export default withStyles (styles)(StoggleListItem)
+export default withStyles(styles)(StoggleListItem)

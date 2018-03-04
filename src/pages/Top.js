@@ -13,6 +13,7 @@ import AddIcon from 'material-ui-icons/Add'
 import { fade } from 'material-ui/styles/colorManipulator'
 import IconButton from 'material-ui/IconButton'
 import CloseIcon from 'material-ui-icons/Close'
+import StoggleList from './StoggleList'
 import StoggleListItem from './StoggleListItem'
 import StoggleSelectedListItem from './StoggleSelectedListItem'
 import DeleteButton from 'material-ui-icons/Delete'
@@ -108,7 +109,10 @@ class Top extends Component {
         >
           Stoggle
         </Typography>
-        <StoggleList listItems={listItems}/>
+        <StoggleList
+          listItems={listItems}
+          onOpen={this.handleOpen}
+        />
         <StoggleAddModal
           onChange={this.handleForm}
           onClose={this.handleClose}
