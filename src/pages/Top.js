@@ -49,6 +49,12 @@ class Top extends Component {
     formItemName : ''
   }
 
+  componentDidMount = () => {
+    if (this.props.requestGet) {
+      this.props.requestGet()
+    }
+  }
+
   handleForm = event => {
     this.setState({
       formItemName: event.target.value

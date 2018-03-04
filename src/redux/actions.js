@@ -1,6 +1,10 @@
 import { StoggleActionTypes } from './constants'
 
 // Action Creator
+export const requestGet = () => ({
+  type: StoggleActionTypes.STOGGLE_REQUEST_GET
+})
+
 export const requestAdd = name => ({
   type: StoggleActionTypes.STOGGLE_REQUEST_ADD,
   payload: {
