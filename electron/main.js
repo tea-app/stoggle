@@ -9,7 +9,7 @@ let win
 
 function createWindow () {
   // browser window を生成する
-  win = new BrowserWindow({width: 800, height: 600})
+  win = new BrowserWindow({width: 960, height: 700})
 
   // アプリの index.html を読み込む
   win.loadURL(url.format({
@@ -48,6 +48,3 @@ app.on('activate', () => {
     createWindow()
   }
 })
-
-
-app.on('ready', createWindow)

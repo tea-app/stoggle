@@ -4,10 +4,11 @@
   "description": "",
   "main": "electron/main.js",
   "scripts": {
-    "start": "parcel src/index.html -p 3080 --public-url ./",
+    "start": "parcel src/index.html -p 3080",
     "build": "parcel build src/index.html --public-url ./",
     "electron": "npm run build; electron .",
     "electron:build": "electron-packager . stoggle --platform=darwin --arch=x64 --electron-version=2.0.0-beta.1 --overwrite --icon=icons/purple/mac/1024x1024.png.icns",
+    "electron:clean-build": "npm run build; npm run electron:build",
     "electron:open": "open stoggle-darwin-x64/stoggle.app",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
