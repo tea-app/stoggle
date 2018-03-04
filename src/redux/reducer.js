@@ -1,36 +1,19 @@
 import { combineReducers } from 'redux'
 import uuid from 'uuid/v4'
 
-// ActionTypes
-export const StoggleActionTypes = {
-  STOGGLE_REQUEST_ADD: '@@stoggle/STOGGLE_REQUEST_ADD',
-  STOGGLE_REQUEST_DELETE: '@@stoggle/STOGGLE_REQUEST_DELETE',
-  STOGGLE_REQUEST_TOGGLE: '@@stoggle/STOGGLE_REQUEST_TOGGLE'
+import { StoggleActionTypes } from './constants'
+
+const initialState = {
+  stocks: [
+    {
+      id: 'stoggle-1',
+      name: '塩',
+      status: true
+    }
+  ]
 }
 
-// Action Creators --------------------------------------------------
-export const requestAdd = name => ({
-  type: StoggleActionTypes.STOGGLE_REQUEST_ADD,
-  payload: {
-    name
-  }
-})
-
-export const requestToggle = id => ({
-  type: StoggleActionTypes.STOGGLE_REQUEST_TOGGLE,
-  payload: {
-    id
-  }
-})
-
-export const requestDelete = id => ({
-  type: StoggleActionTypes.STOGGLE_REQUEST_DELETE,
-  payload: {
-    id
-  }
-})
-
-// reducers --------------------------------------------------
+// reducers
 const reduceRequestAdd = (state, action) => {
   const newStocks = state.stocks
   const newStock = {
@@ -69,17 +52,7 @@ const reduceRequestDelete = (state, action) => {
   })
 }
 
-const initialState = {
-  stocks: [
-    {
-      id: 'stoggle-1',
-      name: '塩',
-      status: true
-    }
-  ]
-}
-
-const stoggleReducer = (state = initialState, action) => {
+export const stoggleReducer = (state = initialState, action) => {
   switch (action.type) {
     case StoggleActionTypes.STOGGLE_REQUEST_ADD:
     return reduceRequestAdd(state,action)
@@ -95,6 +68,6 @@ const stoggleReducer = (state = initialState, action) => {
   }
 }
 
-export const reducer = combineReducers({
+export default combineReducers({
   stoggleReducer
 })
