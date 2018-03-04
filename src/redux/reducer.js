@@ -1,36 +1,24 @@
 import { combineReducers } from 'redux'
 import uuid from 'uuid/v4'
 
-// ActionTypes
-export const StoggleActionTypes = {
-  STOGGLE_REQUEST_ADD: '@@stoggle/STOGGLE_REQUEST_ADD',
-  STOGGLE_REQUEST_DELETE: '@@stoggle/STOGGLE_REQUEST_DELETE',
-  STOGGLE_REQUEST_TOGGLE: '@@stoggle/STOGGLE_REQUEST_TOGGLE'
+import { StoggleActionTypes } from './constants'
+
+const STORAGE_KEY = '_stoggle_storage'
+
+const initialState = {
+  stocks: []
 }
 
-// Action Creators --------------------------------------------------
-export const requestAdd = name => ({
-  type: StoggleActionTypes.STOGGLE_REQUEST_ADD,
-  payload: {
-    name
-  }
-})
+// reducers
+const reduceRequestGet = (state, action) => {
+  const stringStocks = localStorage.getItem(STORAGE_KEY) || '[]'
+  const stocks = JSON.parse(stringStocks)
 
-export const requestToggle = id => ({
-  type: StoggleActionTypes.STOGGLE_REQUEST_TOGGLE,
-  payload: {
-    id
-  }
-})
+  return Object.assign({}, state, {
+    stocks: stocks
+  })
+}
 
-export const requestDelete = id => ({
-  type: StoggleActionTypes.STOGGLE_REQUEST_DELETE,
-  payload: {
-    id
-  }
-})
-
-// reducers --------------------------------------------------
 const reduceRequestAdd = (state, action) => {
   const newStocks = state.stocks
   const newStock = {
@@ -39,6 +27,8 @@ const reduceRequestAdd = (state, action) => {
     status: true
   }
   newStocks.push(newStock)
+
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(newStocks))
 
   return Object.assign({}, state, {
     stocks: newStocks
@@ -54,6 +44,8 @@ const reduceRequestToggle = (state, action) => {
     return stock
   })
 
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(newStocks))
+
   return Object.assign({}, state, {
     stocks: newStocks
   })
@@ -64,25 +56,20 @@ const reduceRequestDelete = (state, action) => {
     return stock.id !== action.payload.id
   })
 
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(newStocks))
+
   return Object.assign({}, state, {
     stocks: newStocks
   })
 }
 
-const initialState = {
-  stocks: [
-    {
-      id: 'stoggle-1',
-      name: '塩',
-      status: true
-    }
-  ]
-}
-
-const stoggleReducer = (state = initialState, action) => {
+export const stoggleReducer = (state = initialState, action) => {
   switch (action.type) {
+    case StoggleActionTypes.STOGGLE_REQUEST_GET:
+    return reduceRequestGet(state, action)
+
     case StoggleActionTypes.STOGGLE_REQUEST_ADD:
-    return reduceRequestAdd(state,action)
+    return reduceRequestAdd(state, action)
 
     case StoggleActionTypes.STOGGLE_REQUEST_TOGGLE:
     return reduceRequestToggle(state, action)
@@ -95,6 +82,6 @@ const stoggleReducer = (state = initialState, action) => {
   }
 }
 
-export const reducer = combineReducers({
+export default combineReducers({
   stoggleReducer
 })

@@ -10,6 +10,7 @@ dist
 
 # Electron
 stoggle-darwin-x64
+stoggle-darwin-x64.*
 
 # Logs
 *.log

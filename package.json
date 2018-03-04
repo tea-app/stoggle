@@ -6,10 +6,12 @@
   "scripts": {
     "start": "parcel src/index.html -p 3080",
     "build": "parcel build src/index.html --public-url ./",
+    "clean": "rm -rf .cache dist stoggle-darwin-x64 stoggle-darwin-x64.zip",
     "electron": "npm run build; electron .",
     "electron:build": "electron-packager . stoggle --platform=darwin --arch=x64 --electron-version=2.0.0-beta.1 --overwrite --icon=icons/purple/mac/1024x1024.png.icns",
     "electron:clean-build": "npm run build; npm run electron:build",
     "electron:open": "open stoggle-darwin-x64/stoggle.app",
+    "electron:zip": "tar cf stoggle-darwin-x64.zip stoggle-darwin-x64",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -18,6 +20,7 @@
   "dependencies": {
     "material-ui": "^1.0.0-beta.35",
     "material-ui-icons": "^1.0.0-beta.35",
+    "prop-types": "^15.6.1",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-redux": "^5.0.7",
