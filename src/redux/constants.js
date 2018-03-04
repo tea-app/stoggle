@@ -1,0 +1,6 @@
+// ActionTypes
+export const StoggleActionTypes = {
+  STOGGLE_REQUEST_ADD: '@@stoggle/STOGGLE_REQUEST_ADD',
+  STOGGLE_REQUEST_DELETE: '@@stoggle/STOGGLE_REQUEST_DELETE',
+  STOGGLE_REQUEST_TOGGLE: '@@stoggle/STOGGLE_REQUEST_TOGGLE'
+}
