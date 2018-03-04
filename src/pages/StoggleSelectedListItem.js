@@ -1,5 +1,5 @@
 import React from 'react'
-import { ListItem,ListItemText } from 'material-ui/List'
+import { ListItem, ListItemText } from 'material-ui/List'
 import Typography from 'material-ui/Typography'
 import { withStyles } from 'material-ui/styles'
 import IconButton from 'material-ui/IconButton'
@@ -20,7 +20,7 @@ const styles = theme => ({
 })
 
 const StoggleSelectedListItem = ({primary, classes, onClick, onDelete}) => {
-  return (
+  return(
     <div>
       <ListItem className={classes.listItem} onClick={onClick}>
         <ListItemText
