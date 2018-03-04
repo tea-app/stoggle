@@ -18,7 +18,7 @@ import CloseIcon from 'material-ui-icons/Close'
 import StoggleListItem from './StoggleListItem'
 import StoggleSelectedListItem from './StoggleSelectedListItem'
 import DeleteButton from 'material-ui-icons/Delete'
-
+import Paper from 'material-ui/Paper'
 
 // styles -------------------------------------------
 const styles = theme => ({
@@ -29,7 +29,7 @@ const styles = theme => ({
     margin: 'auto',
   },
   title: {
-    marginTop: 96,
+    marginTop: 64,
     color: 'white',
   },
   tile: {
@@ -51,6 +51,8 @@ const styles = theme => ({
     marginRight: -24
   },
   modal: {
+    maxWidth: 400,
+    width: 'calc(100% - 32px)',
     backgroundColor: 'white',
     position: 'absolute',
     top: '50%',
@@ -67,6 +69,9 @@ const styles = theme => ({
   form: {
     textAlign: 'center',
     margin: '0 24px'
+  },
+  input: {
+    width: '100%',
   },
   modalAdd: {
     marginLeft: 'auto',
@@ -90,10 +95,13 @@ class Top extends Component {
   }
 
   handleAdd = () => {
+    this.handleClose()
+    if(this.state.formItemName === ''){
+      return
+    }
     if(this.props.requestAdd){
       this.props.requestAdd(this.state.formItemName)
     }
-    this.handleClose()
   }
 
   handleDelete = id => {
@@ -113,7 +121,10 @@ class Top extends Component {
   }
 
   handleClose = () => {
-    this.setState({ open: false })
+    this.setState({
+      open: false,
+      formItemName: ''
+    })
   }
 
   render = () => {
@@ -132,19 +143,19 @@ class Top extends Component {
       <div className={classes.container}>
         <Typography className={classes.title} variant='display4' align='center'>Stoggle</Typography>
         <div className={classes.tile}>
-        <AppBar className={classes.listHeader} position='sticky'>
-          <ToolBar>
-            <Typography className={classes.category} variant='title' color='inherit' noWrap>stock</Typography>
-          </ToolBar>
-          <ToolBar>
-            <IconButton onClick={this.handleOpen} className={classes.add}>
-              <AddIcon />
-            </IconButton>
-          </ToolBar>
-        </AppBar>
-        <List className={classes.list}>
-          {listItems}
-        </List>
+          <AppBar className={classes.listHeader} position='sticky'>
+            <ToolBar>
+              <Typography className={classes.category} variant='title' color='inherit' noWrap>stock</Typography>
+            </ToolBar>
+            <ToolBar>
+              <IconButton onClick={this.handleOpen} className={classes.add}>
+                <AddIcon />
+              </IconButton>
+            </ToolBar>
+          </AppBar>
+          <List className={classes.list}>
+            {listItems}
+          </List>
         </div>
         <Modal
           open={this.state.open}
@@ -158,7 +169,7 @@ class Top extends Component {
               </IconButton>
             </ToolBar>
             <form className={classes.form} noValidate autoComplete='off'>
-              <Input onChange={this.handleForm}></Input>
+              <Input onChange={this.handleForm} className={classes.input}></Input>
             </form>
             <ToolBar>
               <Button onClick={this.handleAdd} className={classes.modalAdd} color='primary'>
