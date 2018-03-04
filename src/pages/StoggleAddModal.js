@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Modal from 'mateiral-ui/Modal'
+import Modal from 'material-ui/Modal'
 import Input from 'material-ui/Input'
 import ToolBar from 'material-ui/ToolBar'
 import Typography from 'material-ui/Typography'
@@ -8,6 +8,7 @@ import Button from 'material-ui/Button'
 import IconButton from 'material-ui/IconButton'
 import CloseButton from 'material-ui-icons/Close'
 import { withStyles } from 'material-ui/styles'
+import CloseIcon from 'material-ui-icons/Close'
 
 const styles = theme => ({
   modal: {
@@ -49,6 +50,13 @@ const StoggleAddModal = props => {
     open
   } = props
 
+  const onKeyDown = event => {
+    if(event.key === 'Enter'){
+      onClickAdd()
+      event.preventDefault()
+    }
+  }
+
   return (
     <Modal
       open={open}
@@ -61,9 +69,9 @@ const StoggleAddModal = props => {
             <CloseIcon />
           </IconButton>
         </ToolBar>
-        <form className={classes.form} noValidate autoComplete='off'>
-          <Input onChange={onChange} className={classes.input}></Input>
-        </form>
+        <div className={classes.form}>
+          <Input autoFocus onChange={onChange} className={classes.input} onKeyDown={onKeyDown}></Input>
+        </div>
         <ToolBar>
           <Button onClick={onClickAdd} className={classes.modalAdd} color='primary'>
             Add
@@ -74,6 +82,4 @@ const StoggleAddModal = props => {
   )
 }
 
-
-
-export default withStyles (styles)(StoggleAddModal)
+export default withStyles(styles)(StoggleAddModal)

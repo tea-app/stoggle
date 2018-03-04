@@ -6,6 +6,7 @@ import Typography from 'material-ui/Typography'
 import AddIcon from 'material-ui-icons/Add'
 import IconButton from 'material-ui/IconButton'
 import { withStyles } from 'material-ui/styles'
+import List from 'material-ui/List'
 
 const styles = theme => ({
   tile: {
@@ -32,7 +33,8 @@ const StoggleList = props => {
     component: Component,
     classes,
     onClick,
-    listItems
+    listItems,
+    onOpen
   } = props
 
   return(
@@ -42,7 +44,7 @@ const StoggleList = props => {
           <Typography className={classes.category} variant='title' color='inherit' noWrap>stock</Typography>
         </ToolBar>
         <ToolBar>
-          <IconButton onClick={this.handleOpen} className={classes.add}>
+          <IconButton onClick={onOpen} className={classes.add}>
             <AddIcon />
           </IconButton>
         </ToolBar>
@@ -55,14 +57,15 @@ const StoggleList = props => {
 }
 
 StoggleList.propTypes = {
-  component: PropTypes.oneType([PropTypes.string, PropTypes.func]),
-  classes: PropTypes.object.required,
+  component: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+  classes: PropTypes.object.isRequired,
   onClick: PropTypes.func,
-  listItems: PropTypes.array
+  listItems: PropTypes.array,
+  onOpen: PropTypes.func
 }
 
 StoggleList.defaultProps = {
   component: 'div'
 }
 
-export default withStyles (styles)(StoggleList)
+export default withStyles(styles)(StoggleList)
