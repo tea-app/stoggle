@@ -31,6 +31,7 @@ const styles = theme => ({
     marginTop: 64,
     paddingRight: 24,
     paddingLeft: 24,
+    marginBottom: 16,
     color: 'white',
     [theme.breakpoints.down('xs')]: {
       ...theme.typography.display3,

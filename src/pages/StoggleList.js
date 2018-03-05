@@ -7,10 +7,11 @@ import AddIcon from 'material-ui-icons/Add'
 import IconButton from 'material-ui/IconButton'
 import { withStyles } from 'material-ui/styles'
 import List from 'material-ui/List'
+import Paper  from 'material-ui/Paper'
 
 const styles = theme => ({
-  tile: {
-    padding: 16,
+  content: {
+    padding: 16
   },
   list: {
     minHeight: 300,
@@ -26,11 +27,13 @@ const styles = theme => ({
     justifyContent: 'space-between',
     flexDirection: 'row',
   },
+  headerContainer: {
+    paddingLeft: 16
+  }
 })
 
 const StoggleList = props => {
   const {
-    component: Component,
     classes,
     onClick,
     listItems,
@@ -38,21 +41,23 @@ const StoggleList = props => {
   } = props
 
   return(
-    <Component className={classes.tile}>
-      <AppBar className={classes.listHeader} position='sticky'>
-        <ToolBar>
-          <Typography className={classes.category} variant='title' color='inherit' noWrap>stock</Typography>
-        </ToolBar>
-        <ToolBar>
-          <IconButton onClick={onOpen} className={classes.add}>
-            <AddIcon />
-          </IconButton>
-        </ToolBar>
-      </AppBar>
-      <List className={classes.list}>
-        {listItems}
-      </List>
-    </Component>
+    <div className={classes.content}>
+      <Paper className={classes.tile}>
+        <AppBar className={classes.listHeader} position='sticky'>
+          <ToolBar className={classes.headerContainer}>
+            <Typography variant='title' color='inherit' noWrap>stock</Typography>
+          </ToolBar>
+          <ToolBar>
+            <IconButton onClick={onOpen} className={classes.add}>
+              <AddIcon />
+            </IconButton>
+          </ToolBar>
+        </AppBar>
+        <List className={classes.list}>
+          {listItems}
+        </List>
+      </Paper>
+    </div>
   )
 }
 
