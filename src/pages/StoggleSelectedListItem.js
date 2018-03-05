@@ -3,7 +3,7 @@ import { ListItem, ListItemText } from 'material-ui/List'
 import Typography from 'material-ui/Typography'
 import { withStyles } from 'material-ui/styles'
 import IconButton from 'material-ui/IconButton'
-import DeleteIcon from 'material-ui-icons/Delete'
+import DeleteIcon from 'material-ui-icons/DeleteForever'
 import Divider from 'material-ui/Divider'
 
 const styles = theme => ({

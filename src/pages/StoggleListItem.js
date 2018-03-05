@@ -2,7 +2,7 @@ import React from 'react'
 import { ListItem, ListItemText } from 'material-ui/List'
 import IconButton from 'material-ui/IconButton'
 import { withStyles } from 'material-ui/styles'
-import DeleteIcon from 'material-ui-icons/Delete'
+import DeleteIcon from 'material-ui-icons/DeleteForever'
 import Divider from 'material-ui/Divider'
 
 const styles = theme => ({

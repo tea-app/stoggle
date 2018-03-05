@@ -9,6 +9,7 @@ import IconButton from 'material-ui/IconButton'
 import CloseButton from 'material-ui-icons/Close'
 import { withStyles } from 'material-ui/styles'
 import CloseIcon from 'material-ui-icons/Close'
+import { FormControl } from 'material-ui/Form'
 
 const styles = theme => ({
   modal: {
@@ -25,11 +26,12 @@ const styles = theme => ({
   },
   close: {
       marginLeft: 'auto',
-      marginRight: -16
+      marginRight: -16,
   },
   form: {
     textAlign: 'center',
-    margin: '0 24px'
+    margin: '0 24px',
+    display: 'block'
   },
   input: {
     width: '100%',
@@ -50,7 +52,7 @@ const StoggleAddModal = props => {
     open
   } = props
 
-  const onKeyDown = event => {
+  const onKeyPress = event => {
     if(event.key === 'Enter'){
       onClickAdd()
       event.preventDefault()
@@ -61,6 +63,7 @@ const StoggleAddModal = props => {
     <Modal
       open={open}
       onClose={onClose}
+      disableRestoreFocus
     >
       <div className={classes.modal}>
         <ToolBar className={classes.modalHead} >
@@ -69,9 +72,9 @@ const StoggleAddModal = props => {
             <CloseIcon />
           </IconButton>
         </ToolBar>
-        <div className={classes.form}>
-          <Input autoFocus onChange={onChange} className={classes.input} onKeyDown={onKeyDown}></Input>
-        </div>
+        <FormControl className={classes.form}>
+          <Input autoFocus onChange={onChange} className={classes.input} onKeyPress={onKeyPress}></Input>
+        </FormControl>
         <ToolBar>
           <Button onClick={onClickAdd} className={classes.modalAdd} color='primary'>
             Add

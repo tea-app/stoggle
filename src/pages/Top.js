@@ -28,16 +28,19 @@ const styles = theme => ({
     margin: 'auto',
   },
   title: {
-    marginTop: 64,
+    paddingTop: 64,
     paddingRight: 24,
     paddingLeft: 24,
     color: 'white',
     [theme.breakpoints.down('xs')]: {
       ...theme.typography.display3,
       color: 'white',
-      marginTop: 44,
+      marginTop: 0,
       fontSize: '5rem'
     }
+  },
+  list: {
+    marginTop: 16
   }
 })
 
@@ -94,6 +97,27 @@ class Top extends Component {
     })
   }
 
+
+  handleFilter = filter => {
+    switch(filter) {
+    case 0:
+      this.props.filterAll()
+      return
+
+    case 1:
+      this.props.filterAvailable()
+      return
+
+    case 2:
+      this.props.filterBusy()
+      return
+
+    default:
+      return
+    }
+  }
+
+
   render = () => {
     const {
       classes,
@@ -116,8 +140,10 @@ class Top extends Component {
           Stoggle
         </Typography>
         <StoggleList
+          className={classes.list}
           listItems={listItems}
           onOpen={this.handleOpen}
+          onFilter={this.handleFilter}
         />
         <StoggleAddModal
           onChange={this.handleForm}
