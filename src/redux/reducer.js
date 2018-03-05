@@ -40,7 +40,7 @@ const reduceRequestAdd = (state, action) => {
   })
 
   if(isExist) {
-    return stock
+    return state
   }
 
   allStocks.push(newStock)
