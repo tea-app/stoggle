@@ -25,3 +25,15 @@ export const requestDelete = id => ({
     id
   }
 })
+
+export const filterAll = () => ({
+  type: StoggleActionTypes.STOGGLE_FILTER_ALL,
+})
+
+export const filterAvailable = () => ({
+  type: StoggleActionTypes.STOGGLE_FILTER_AVAILABLE,
+})
+
+export const filterBusy = () => ({
+  type: StoggleActionTypes.STOGGLE_FILTER_BUSY,
+})

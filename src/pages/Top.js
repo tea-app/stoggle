@@ -95,6 +95,27 @@ class Top extends Component {
     })
   }
 
+
+  handleFilter = filter => {
+    switch(filter) {
+    case 0:
+      this.props.filterAll()
+      return
+
+    case 1:
+      this.props.filterAvailable()
+      return
+
+    case 2:
+      this.props.filterBusy()
+      return
+
+    default:
+      return
+    }
+  }
+
+
   render = () => {
     const {
       classes,
@@ -119,6 +140,7 @@ class Top extends Component {
         <StoggleList
           listItems={listItems}
           onOpen={this.handleOpen}
+          onFilter={this.handleFilter}
         />
         <StoggleAddModal
           onChange={this.handleForm}
