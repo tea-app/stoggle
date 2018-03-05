@@ -11,10 +11,12 @@ import Paper  from 'material-ui/Paper'
 import EventBusyIcon from 'material-ui-icons/EventBusy'
 import EventAvailableIcon from 'material-ui-icons/EventAvailable'
 import EventNoteIcon from 'material-ui-icons/EventNote'
+import classNames from 'classnames'
 
 const styles = theme => ({
   content: {
-    padding: 16
+    padding: 16,
+    marginBottom: 32
   },
   list: {
     minHeight: 300,
@@ -25,7 +27,7 @@ const styles = theme => ({
   },
   add: {
     color: 'white',
-    marginRight: -24
+
   },
   listHeader: {
     backgroundColor: theme.palette.secondary.dark,
@@ -49,7 +51,6 @@ class StoggleList extends Component {
 
   handleFilter = () => {
     const filter = (this.state.filter + 1) % 3
-    console.log(filter)
     this.setState({
       filter: filter
     })
@@ -64,17 +65,22 @@ class StoggleList extends Component {
       classes,
       onClick,
       listItems,
-      onOpen
+      onOpen,
+      className: classNameProp
     } = this.props
+    const className = classNames(
+      classNameProp,
+      classes.content
+    )
 
     return(
-      <div className={classes.content}>
+      <div className={className}>
         <Paper className={classes.tile}>
           <AppBar className={classes.listHeader} position='sticky'>
             <ToolBar className={classes.headerContainer}>
               <Typography variant='title' color='inherit' noWrap>stock</Typography>
             </ToolBar>
-            <ToolBar>
+            <ToolBar disableGutters>
               {
                 this.state.filter === 0 &&
                 <IconButton onClick={this.handleFilter} className={classes.eventIcon}>
@@ -93,7 +99,7 @@ class StoggleList extends Component {
                   <EventBusyIcon />
                 </IconButton>
               }
-              <IconButton onClick={onOpen} className={classes.add}>
+              <IconButton onClick={onOpen} className={classes.add} focusRipple={false}>
                 <AddIcon />
               </IconButton>
             </ToolBar>
