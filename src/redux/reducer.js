@@ -30,6 +30,19 @@ const reduceRequestAdd = (state, action) => {
     status: true
   }
 
+  let isExist = false
+
+  allStocks.forEach(stock => {
+    if (stock.name === action.payload.name) {
+      isExist = true
+      return
+    }
+  })
+
+  if(isExist) {
+    return stock
+  }
+
   allStocks.push(newStock)
   localStorage.setItem(STORAGE_KEY, JSON.stringify(allStocks))
 
