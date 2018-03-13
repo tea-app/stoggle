@@ -155,6 +155,4 @@ export const stoggleReducer = (state = initialState, action) => {
   }
 }
 
-export default combineReducers({
-  stoggleReducer
-})
+export default stoggleReducer
