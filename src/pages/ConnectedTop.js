@@ -5,13 +5,15 @@ import {
   requestToggle,
   requestDelete,
   requestGet,
+  requestGetUserinfo,
   filterAll,
   filterAvailable,
   filterBusy
 } from './../redux/actions'
 
  const mapStateToProps = state => ({
-   stocks: state.stoggleReducer.stocks
+   stocks: state.stoggleReducer.stocks,
+   userinfo: state.stoggleReducer.userinfo
  })
 
 const mapDispatchToProps = dispatch => ({
@@ -19,6 +21,7 @@ const mapDispatchToProps = dispatch => ({
   requestToggle: id => dispatch(requestToggle(id)),
   requestDelete: id => dispatch(requestDelete(id)),
   requestGet: () => dispatch(requestGet()),
+  requestGetUserinfo: () => dispatch(requestGetUserinfo()),
   filterAll: () => dispatch(filterAll()),
   filterAvailable: () => dispatch(filterAvailable()),
   filterBusy: () => dispatch(filterBusy()),

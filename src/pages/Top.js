@@ -8,9 +8,9 @@ import List, {
 } from 'material-ui/List'
 import Divider from 'material-ui/Divider'
 import AppBar from 'material-ui/AppBar'
+import Avatar from 'material-ui/Avatar'
 import ToolBar from 'material-ui/ToolBar'
 import AddIcon from 'material-ui-icons/Add'
-import { fade } from 'material-ui/styles/colorManipulator'
 import IconButton from 'material-ui/IconButton'
 import CloseIcon from 'material-ui-icons/Close'
 import StoggleList from './StoggleList'
@@ -61,8 +61,13 @@ class Top extends Component {
   }
 
   componentDidMount = () => {
+    console.log(this.state)
     if (this.props.requestGet) {
       this.props.requestGet()
+    }
+
+    if (this.props.requestGetUserinfo) {
+      this.props.requestGetUserinfo()
     }
   }
 
@@ -88,7 +93,7 @@ class Top extends Component {
     }
   }
 
-  handleClickItem = (id) => {
+  handleClickItem = id => {
     return () => {
       this.props.requestToggle(id)
     }
@@ -127,6 +132,7 @@ class Top extends Component {
 
   render = () => {
     const {
+      userinfo,
       classes,
       stocks
     } = this.props
@@ -136,14 +142,21 @@ class Top extends Component {
       ? <StoggleListItem key={stock.id} primary={stock.name} onClick={this.handleClickItem(stock.id)} onDelete={this.handleDelete(stock.id)} />
       : <StoggleSelectedListItem key={stock.id} primary={stock.name} onClick={this.handleClickItem(stock.id)} onDelete={this.handleDelete(stock.id)} />
     })
-
+    console.log('userinfo', userinfo.picture)
     return(
       <div>
-        <GoogleOAuthLink>Google auth</GoogleOAuthLink>
         <ToolBar className={classes.githubIcon}>
-          <IconButton href="https://github.com/tea-app/stoggle" color='inherit' target='_blank'>
+          <IconButton href='https://github.com/tea-app/stoggle' color='inherit' target='_blank'>
             <GitHubIcon />
           </IconButton>
+          {userinfo.picture
+            ? <Avatar
+              alt='Avatar icon'
+              src={userinfo.picture}
+            />
+            : <GoogleOAuthLink>Sign in</GoogleOAuthLink>
+          }
+          
         </ToolBar>
         <div className={classes.container}>
           <Typography

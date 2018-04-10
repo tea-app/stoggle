@@ -1,6 +1,10 @@
 import { StoggleActionTypes } from './constants'
 
 // Action Creator
+export const requestGetUserinfo = () => ({
+  type: StoggleActionTypes.STOGGLE_REQUEST_GET_USERINFO
+})
+
 export const requestGet = () => ({
   type: StoggleActionTypes.STOGGLE_REQUEST_GET
 })
@@ -37,3 +41,41 @@ export const filterAvailable = () => ({
 export const filterBusy = () => ({
   type: StoggleActionTypes.STOGGLE_FILTER_BUSY,
 })
+
+export const successGetUserinfo = userinfo => ({
+  type: StoggleActionTypes.STOGGLE_SUCCESS_GET_USERINFO,
+  payload: {
+    userinfo
+  }
+})
+
+export const successGetStocks = stocks => ({
+  type: StoggleActionTypes.STOGGLE_SUCCESS_GET,
+  payload: {
+    stocks
+  }
+})
+
+export const successPostStocks = stock => ({
+  type: StoggleActionTypes.STOGGLE_SUCCESS_POST,
+  payload: {
+    stock
+  }
+})
+
+export const successToggleStocks = stock => ({
+  type: StoggleActionTypes.STOGGLE_SUCCESS_TOGGLE,
+  payload: {
+    stock
+  }
+})
+
+export const successDeleteStocks = () => ({
+  type: StoggleActionTypes.STOGGLE_SUCCESS_DELETE
+})
+
+export const failureRequest = error => ({
+  type: StoggleActionTypes.STOGGLE_FAILURE,
+  error
+})
+

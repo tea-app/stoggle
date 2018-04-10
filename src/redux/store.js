@@ -1,13 +1,18 @@
 import { createStore, applyMiddleware, combineReducers } from 'redux'
+import createSagaMiddleware from 'redux-saga'
+
+import sagas from './sagas'
 import stoggleReducer from './reducer'
 import logger from 'redux-logger'
 
 import { routerMiddleware, routerReducer } from 'react-router-redux'
 import history from './history'
 
+const sagaMiddleware = createSagaMiddleware()
 const middleware = applyMiddleware(
   logger,
-  routerMiddleware(history)
+  routerMiddleware(history),
+  sagaMiddleware
 )
 
 const reducer = combineReducers({
@@ -17,3 +22,5 @@ const reducer = combineReducers({
 
 
 export default createStore(reducer, middleware)
+
+sagaMiddleware.run(sagas)
