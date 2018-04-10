@@ -1,22 +1,21 @@
 import axios from 'axios'
 
-let baseURL = 'http://localhost'
-if (process.env.NODE_ENV === 'production') {
-  baseURL = 'http://stoggle.com'
-}
-
-console.log(process.env)
+const baseURL = process.env.NODE_ENV === 'production'
+  ? 'http://stoggle.net'
+  : 'http://localhost'
 
 const createApi = () => {
-  axios.defaults.baseURL = baseURL
-  axios.defaults.headers.common['Authorization'] = 'Bearer ' + sessionStorage.getItem('_stoggle_key')
+  const request = axios.create({
+    baseURL: baseURL,
+    withCredentials: true
+  })
 
   return {
-    getUserinfo: () => axios.get('api/userinfo'),
-    getStocks: () => axios.get('api/stocks'),
-    postStocks: name => axios.post('api/stocks', { name }),
-    toggleStocks: id => axios.patch('api/stocks/toggle/' + id),
-    deleteStocks: id => axios.delete('api/stocks/' + id)
+    getUserinfo   : ()    => request.get('api/userinfo'),
+    getStocks     : ()    => request.get('api/stocks'),
+    addStocks     : name  => request.post('api/stocks', { name }),
+    toggleStocks  : id    => request.patch('api/stocks/toggle/' + id),
+    deleteStocks  : id    => request.delete('api/stocks/' + id)
   }
 }
 

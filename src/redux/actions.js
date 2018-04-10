@@ -56,8 +56,8 @@ export const successGetStocks = stocks => ({
   }
 })
 
-export const successPostStocks = stock => ({
-  type: StoggleActionTypes.STOGGLE_SUCCESS_POST,
+export const successAddStocks = stock => ({
+  type: StoggleActionTypes.STOGGLE_SUCCESS_ADD,
   payload: {
     stock
   }
@@ -78,4 +78,3 @@ export const failureRequest = error => ({
   type: StoggleActionTypes.STOGGLE_FAILURE,
   error
 })
-

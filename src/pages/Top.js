@@ -61,7 +61,6 @@ class Top extends Component {
   }
 
   componentDidMount = () => {
-    console.log(this.state)
     if (this.props.requestGet) {
       this.props.requestGet()
     }
@@ -87,8 +86,9 @@ class Top extends Component {
     }
   }
 
-  handleDelete = id => {
-    return () => {
+  handleDelete = id => event => {
+    event.stopPropagation()
+    if (this.props.requestDelete) {
       this.props.requestDelete(id)
     }
   }
@@ -142,7 +142,7 @@ class Top extends Component {
       ? <StoggleListItem key={stock.id} primary={stock.name} onClick={this.handleClickItem(stock.id)} onDelete={this.handleDelete(stock.id)} />
       : <StoggleSelectedListItem key={stock.id} primary={stock.name} onClick={this.handleClickItem(stock.id)} onDelete={this.handleDelete(stock.id)} />
     })
-    console.log('userinfo', userinfo.picture)
+
     return(
       <div>
         <ToolBar className={classes.githubIcon}>

@@ -16,14 +16,23 @@ const reduceSuccessGet = (state, action) => {
   })
 }
 
-const reduceSuccessAdd = (state, action) => {
-  const newStocks = state.stocks
-  newStocks.push(action.payload.stock)
+const reduceRequestAdd = (state, action) => Object.assign({}, state, {
+  stocks: [
+    ...state.stocks,
+    {
+      id: uuid(),
+      name: action.payload.name,
+      status: false
+    }
+  ]
+})
 
-  return Object.assign({}, state, {
-    stocks: newStocks
-  })
-}
+const reduceSuccessAdd = (state, action) => Object.assign({}, state, {
+  stocks: [
+    ...state.stocks,
+    action.payload.stock
+  ]
+})
 
 const reduceSuccessToggle = (state, action) => {
   const stocks = state.stocks.map(stock => {
@@ -89,7 +98,7 @@ export const stoggleReducer = (state = initialState, action) => {
     case StoggleActionTypes.STOGGLE_SUCCESS_GET:
     return reduceSuccessGet(state, action)
 
-    case StoggleActionTypes.STOGGLE_SUCCESS_POST:
+    case StoggleActionTypes.STOGGLE_SUCCESS_ADD:
     return reduceSuccessAdd(state, action)
 
     case StoggleActionTypes.STOGGLE_REQUEST_TOGGLE:

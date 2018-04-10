@@ -14,7 +14,6 @@ import Switch from 'react-router-dom/Switch'
 import Route from 'react-router-dom/Route'
 
 import ConnectedTop from './pages/ConnectedTop'
-import Callback from './pages/Callback'
 
 const rootElement = document.querySelector('#root')
 const theme = createMuiTheme({
@@ -30,7 +29,6 @@ const Stoggle = () => (
       <ConnectedRouter history={history}>
         <Switch>
           <Route exact path='/' component={ConnectedTop} />
-          <Route path='/callback' component={Callback} />
         </Switch>
       </ConnectedRouter>
     </MuiThemeProvider>

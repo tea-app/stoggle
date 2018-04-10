@@ -13,7 +13,7 @@ import {
   requestGet,
   successGetStocks,
   successGetUserinfo,
-  successPostStocks,
+  successAddStocks,
   successToggleStocks,
   successDeleteStocks,
   failureRequest
@@ -41,11 +41,10 @@ function* requestGetStocks(action) {
 }
 
 // create new stock
-function* requestPostStocks(action) {
+function* requestAddStocks(action) {
   try {
-    const response = yield call(api.postStocks, action.payload.name)
-    yield put(successPostStocks(response.data))
-    yield put(requestGet())
+    const response = yield call(api.addStocks, action.payload.name)
+    yield put(successAddStocks(response.data))
   } catch (e) {
     yield put(failureRequest(e))
   }
@@ -81,8 +80,8 @@ function* watchRequestGetStocks() {
  yield takeLatest(StoggleActionTypes.STOGGLE_REQUEST_GET, requestGetStocks)
 }
 
-function* watchRequestPostStocks() {
-  yield takeLatest(StoggleActionTypes.STOGGLE_REQUEST_ADD, requestPostStocks)
+function* watchRequestAddStocks() {
+  yield takeLatest(StoggleActionTypes.STOGGLE_REQUEST_ADD, requestAddStocks)
 }
 
 function* watchRequestToggleStocks() {
@@ -97,7 +96,7 @@ function* sagas() {
   yield all([
     fork(watchRequestGetUserinfo),
     fork(watchRequestGetStocks),
-    fork(watchRequestPostStocks),
+    fork(watchRequestAddStocks),
     fork(watchRequestToggleStocks),
     fork(watchRequestDeleteStocks),
   ])
