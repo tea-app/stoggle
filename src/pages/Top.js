@@ -13,6 +13,7 @@ import ToolBar from 'material-ui/ToolBar'
 import AddIcon from 'material-ui-icons/Add'
 import IconButton from 'material-ui/IconButton'
 import CloseIcon from 'material-ui-icons/Close'
+import Snackbar from 'material-ui/Snackbar'
 import StoggleList from './StoggleList'
 import StoggleListItem from './StoggleListItem'
 import StoggleSelectedListItem from './StoggleSelectedListItem'
@@ -57,7 +58,8 @@ const styles = theme => ({
 class Top extends Component {
   state = {
     open: false,
-    formItemName : ''
+    formItemName : '',
+    snackbar: true
   }
 
   componentDidMount = () => {
@@ -109,6 +111,10 @@ class Top extends Component {
       formItemName: ''
     })
   }
+
+  handleSnackbarClose = () => this.setState({
+    snackbar: false
+  })
 
 
   handleFilter = filter => {
@@ -164,7 +170,7 @@ class Top extends Component {
             variant='display4'
             align='center'
           >
-            Stoggle
+            Stoggle β
           </Typography>
           <StoggleList
             className={classes.list}
@@ -179,6 +185,15 @@ class Top extends Component {
             open={this.state.open}
           />
         </div>
+        <Snackbar
+          anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+          open={this.state.snackbar}
+          onClose={this.handleSnackbarClose}
+          SnackbarContentProps={{
+            'aria-describedby': 'message-app-is-beta',
+          }}
+          message={<span id='message-app-is-beta'>現在Stoggleはbeta版です。</span>}
+        />
       </div>
     )
   }
