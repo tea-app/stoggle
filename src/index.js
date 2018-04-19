@@ -29,6 +29,11 @@ const Stoggle = () => (
       <ConnectedRouter history={history}>
         <Switch>
           <Route exact path='/' component={ConnectedTop} />
+          <Route exact paht='/logout' render={
+            () => (
+              <a href='http://localhost/api/logout'>logout</a>
+            )
+          } />
         </Switch>
       </ConnectedRouter>
     </MuiThemeProvider>
