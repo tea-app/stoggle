@@ -9,17 +9,22 @@ import { routerMiddleware, routerReducer } from 'react-router-redux'
 import history from './history'
 
 const sagaMiddleware = createSagaMiddleware()
-const middleware = applyMiddleware(
-  logger,
-  routerMiddleware(history),
-  sagaMiddleware
-)
+
+const middleware = process.env.NODE_ENV === 'production'
+  ? applyMiddleware(
+    routerMiddleware(history),
+    sagaMiddleware
+  )
+  : applyMiddleware(
+    logger,
+    routerMiddleware(history),
+    sagaMiddleware
+  )
 
 const reducer = combineReducers({
   stoggleReducer,
   routerReducer
 })
-
 
 export default createStore(reducer, middleware)
 
