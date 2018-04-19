@@ -8,17 +8,19 @@ import List, {
 } from 'material-ui/List'
 import Divider from 'material-ui/Divider'
 import AppBar from 'material-ui/AppBar'
+import Avatar from 'material-ui/Avatar'
 import ToolBar from 'material-ui/ToolBar'
 import AddIcon from 'material-ui-icons/Add'
-import { fade } from 'material-ui/styles/colorManipulator'
 import IconButton from 'material-ui/IconButton'
 import CloseIcon from 'material-ui-icons/Close'
+import Snackbar from 'material-ui/Snackbar'
 import StoggleList from './StoggleList'
 import StoggleListItem from './StoggleListItem'
 import StoggleSelectedListItem from './StoggleSelectedListItem'
 import DeleteButton from 'material-ui-icons/Delete'
 import StoggleAddModal from './StoggleAddModal'
-import SvgIcon from 'material-ui/SvgIcon'
+import GoogleOAuthLink from '../components/GoogleOAuthLink'
+import GitHubIcon from '../components/GitHubIcon'
 
 // styles -------------------------------------------
 const styles = theme => ({
@@ -56,12 +58,17 @@ const styles = theme => ({
 class Top extends Component {
   state = {
     open: false,
-    formItemName : ''
+    formItemName : '',
+    snackbar: true
   }
 
   componentDidMount = () => {
     if (this.props.requestGet) {
       this.props.requestGet()
+    }
+
+    if (this.props.requestGetUserinfo) {
+      this.props.requestGetUserinfo()
     }
   }
 
@@ -81,13 +88,14 @@ class Top extends Component {
     }
   }
 
-  handleDelete = id => {
-    return () => {
+  handleDelete = id => event => {
+    event.stopPropagation()
+    if (this.props.requestDelete) {
       this.props.requestDelete(id)
     }
   }
 
-  handleClickItem = (id) => {
+  handleClickItem = id => {
     return () => {
       this.props.requestToggle(id)
     }
@@ -103,6 +111,10 @@ class Top extends Component {
       formItemName: ''
     })
   }
+
+  handleSnackbarClose = () => this.setState({
+    snackbar: false
+  })
 
 
   handleFilter = filter => {
@@ -126,6 +138,7 @@ class Top extends Component {
 
   render = () => {
     const {
+      userinfo,
       classes,
       stocks
     } = this.props
@@ -139,11 +152,17 @@ class Top extends Component {
     return(
       <div>
         <ToolBar className={classes.githubIcon}>
-          <IconButton href="https://github.com/tea-app/stoggle" color='inherit' target='_blank'>
-            <SvgIcon>
-              <path d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1-.7.1-.7.1-.7 1.2 0 1.9 1.2 1.9 1.2 1 1.8 2.8 1.3 3.5 1 0-.8.4-1.3.7-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.2.5-2.3 1.3-3.1-.2-.4-.6-1.6 0-3.2 0 0 1-.3 3.4 1.2a11.5 11.5 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.6.2 2.8 0 3.2.9.8 1.3 1.9 1.3 3.2 0 4.6-2.8 5.6-5.5 5.9.5.4.9 1 .9 2.2v3.3c0 .3.1.7.8.6A12 12 0 0 0 12 .3" />
-            </SvgIcon>
+          <IconButton href='https://github.com/tea-app/stoggle' color='inherit' target='_blank'>
+            <GitHubIcon />
           </IconButton>
+          {userinfo.picture
+            ? <Avatar
+              alt='Avatar icon'
+              src={userinfo.picture}
+            />
+            : <GoogleOAuthLink>Sign in</GoogleOAuthLink>
+          }
+          
         </ToolBar>
         <div className={classes.container}>
           <Typography
@@ -151,7 +170,7 @@ class Top extends Component {
             variant='display4'
             align='center'
           >
-            Stoggle
+            Stoggle β
           </Typography>
           <StoggleList
             className={classes.list}
@@ -166,6 +185,15 @@ class Top extends Component {
             open={this.state.open}
           />
         </div>
+        <Snackbar
+          anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+          open={this.state.snackbar}
+          onClose={this.handleSnackbarClose}
+          SnackbarContentProps={{
+            'aria-describedby': 'message-app-is-beta',
+          }}
+          message={<span id='message-app-is-beta'>現在Stoggleはbeta版です。</span>}
+        />
       </div>
     )
   }
