@@ -7,8 +7,6 @@ const createApi = () => {
     withCredentials: true
   })
 
-  console.log(config.baseURL)
-
   return {
     getUserinfo   : ()    => request.get('api/userinfo'),
     getStocks     : ()    => request.get('api/stocks'),
