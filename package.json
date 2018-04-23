@@ -1,6 +1,6 @@
 {
   "name": "stoggle",
-  "version": "1.0.0",
+  "version": "1.0.0.beta-3",
   "description": "",
   "main": "electron/main.js",
   "scripts": {
