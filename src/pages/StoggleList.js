@@ -81,7 +81,7 @@ class StoggleList extends Component {
               <Typography variant='title' color='inherit' noWrap>stock</Typography>
             </ToolBar>
             <ToolBar disableGutters>
-              {/* {
+              {
                 this.state.filter === 0 &&
                 <IconButton onClick={this.handleFilter} className={classes.eventIcon}>
                   <EventNoteIcon />
@@ -98,7 +98,7 @@ class StoggleList extends Component {
                 <IconButton onClick={this.handleFilter} className={classes.eventIcon}>
                   <EventBusyIcon />
                 </IconButton>
-              } */}
+              }
               <IconButton onClick={onOpen} className={classes.add} focusRipple={false}>
                 <AddIcon />
               </IconButton>

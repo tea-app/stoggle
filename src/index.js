@@ -14,6 +14,7 @@ import Switch from 'react-router-dom/Switch'
 import Route from 'react-router-dom/Route'
 
 import ConnectedTop from './pages/ConnectedTop'
+import config from './config'
 
 const rootElement = document.querySelector('#root')
 const theme = createMuiTheme({
@@ -31,7 +32,7 @@ const Stoggle = () => (
           <Route exact path='/' component={ConnectedTop} />
           <Route exact paht='/logout' render={
             () => (
-              <a href='http://localhost/api/logout'>logout</a>
+              <a href={`${config.baseURL}/api/logout`}>logout</a>
             )
           } />
         </Switch>
