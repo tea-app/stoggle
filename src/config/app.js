@@ -1,6 +1,6 @@
 
 export default {
-  PRODUCT_API_URL: 'http://api.stoggl.net',
+  PRODUCT_API_URL: 'http://api.stoggle.net',
 
   DEVELOP_LOCAL_URL: 'http://localhost',
 
