@@ -1,12 +1,9 @@
 import axios from 'axios'
-
-const baseURL = process.env.NODE_ENV === 'production'
-  ? 'http://api.stoggle.net'
-  : 'http://localhost'
+import config from '../config'
 
 const createApi = () => {
   const request = axios.create({
-    baseURL: baseURL,
+    baseURL: config.baseURL,
     withCredentials: true
   })
 
