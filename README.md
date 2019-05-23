@@ -1,7 +1,3 @@
-<p align="center">
-  <img style="width: 216px;" src="https://s3-ap-northeast-1.amazonaws.com/stoggle/512x512.png">
-</p>
-
 # Stoggle
 
 The simple stock management application.
