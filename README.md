@@ -4,7 +4,6 @@
 
 # Stoggle
 
-http://stoggle.net  
 The simple stock management application.
 
 > 現在Electronの最新版はありません。
